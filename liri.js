@@ -50,7 +50,7 @@ else if (command == "movie-this") {
 }
 
 else if (command == "do-what-it-says") {
-    fs.readFile(function(err, response) {
+    fs.readFile("random.txt", function(err, response) {
         if (err) throw err
         query = response
         spotifyCall()
@@ -62,8 +62,10 @@ else {
     console.log("That is not a valid command.")
 }
 
+fs.appendFile("log.txt", command + " " + query + "\n")
+
 function spotifyCall() {
-    if (query.trim() == "") {
+    if (query == "") {
         query = "The Sign Ace of Base"
     }
     spotify.search({type: "track", query: query}).then(function(response) {
